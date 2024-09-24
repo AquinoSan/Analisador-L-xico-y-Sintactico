@@ -1,0 +1,144 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+}
+
+.contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-container {
+  background-color: #2d2d2d;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.code-input {
+  width: 100%;
+  height: 200px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  resize: vertical;
+  box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+}
+
+.analyze-button {
+  margin-top: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.analyze-button:hover {
+  background-color: #218838;
+}
+
+.contenedor_tabla {
+  background-color: #2d2d2d;
+  border-radius: 5px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #444;
+}
+
+th {
+  background-color: #28a745;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #3a3a3a;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap; /* Ajusta las líneas largas */
+}
+
+/* Estilo para el cuadro de texto del contador de tokens */
+.contenedor_contador {
+  background-color: #2d2d2d;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.token-count-display {
+  width: 100%;
+  height: 150px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap; /* Asegura que el texto largo no se salga */
+  resize: none;
+  box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+}
+
+/* Estilo para el resultado del análisis sintáctico */
+.contenedor_sintactico {
+  background-color: #2d2d2d;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.syntax-result, .syntax-error {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+}
+
+.syntax-error {
+  color: #ff4c4c;
+}
+
+/* Agregado para la responsividad de la tabla */
+table {
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    padding: 10px; /* Espacio reducido en pantallas pequeñas */
+  }
+
+  .code-input, .token-count-display {
+    height: 150px; /* Altura ajustada en pantallas pequeñas */
+  }
+
+  .analyze-button {
+    width: 100%; /* Botón ocupa el ancho completo */
+  }
+}

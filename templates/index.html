@@ -4,37 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analizador de Código Java</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Enlace al archivo CSS usando Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">Analizador de Código Java</h1>
-        <textarea id="codeInput" rows="10" class="w-full p-2 border rounded mb-4" placeholder="Ingrese su código Java aquí...">for (int i = 1; i <= 5; i+) {
-    System.out.println ("El valor de la cifra es: " + i);
+<body>
+    <div class="contenedor">
+        <h1>Analizador de Código Java</h1>
+        
+        <div class="input-container">
+            <textarea id="codeInput" class="code-input" placeholder="Ingrese su código Java aquí...">for (int i = 1; i <= 5; i++) {
+    System.out.println("El valor de la cifra es: " + i);
 }</textarea>
-        <div class="flex justify-center mb-6">
-            <button id="analyzeBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Analizar
-            </button>
         </div>
-        <div id="error" class="mt-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 hidden"></div>
-        <div id="tokensContainer" class="mt-6 hidden">
-            <h2 class="text-2xl font-semibold mb-3 text-gray-700">Tokens Encontrados</h2>
-            <div class="overflow-x-auto">
-                <table id="tokensTable" class="min-w-full bg-white">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="py-2 px-4 border-b">Token</th>
-                            <th class="py-2 px-4 border-b">Lexema</th>
-                            <th class="py-2 px-4 border-b">Num de Línea</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        
+        <button id="analyzeBtn" class="analyze-button">Analizar</button>
+
+        <div id="error" class="syntax-error hidden"></div>
+        
+        <div id="tokensContainer" class="contenedor_tabla hidden">
+            <h2>Tokens Encontrados</h2>
+            <table id="tokensTable">
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Lexema</th>
+                        <th>Número de Línea</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
             $('#analyzeBtn').click(function() {
@@ -45,31 +47,28 @@
                     contentType: 'application/json',
                     data: JSON.stringify({code: code}),
                     success: function(response) {
-                        $('#error').addClass('hidden'); // Ocultar el contenedor de error al inicio
-                        $('#tokensContainer').addClass('hidden'); // Ocultar tokens inicialmente
+                        $('#error').addClass('hidden');
+                        $('#tokensContainer').addClass('hidden');
+                        
                         if (response.error) {
-                            // Si hay un error, mostrarlo
                             $('#error').removeClass('hidden').text(response.error);
                         }
-                        // Mostrar siempre la tabla de tokens
+                        
                         $('#tokensContainer').removeClass('hidden');
                         var tableBody = $('#tokensTable tbody');
                         tableBody.empty();
                         response.tokens.forEach(function(token) {
-                            tableBody.append('<tr><td class="border px-4 py-2">' + token.token + 
-                                            '</td><td class="border px-4 py-2">' + token.lexema + 
-                                            '</td><td class="border px-4 py-2">' + token.linea + '</td></tr>');
+                            tableBody.append('<tr><td>' + token.token + 
+                                            '</td><td>' + token.lexema + 
+                                            '</td><td>' + token.linea + '</td></tr>');
                         });
                     },
-
                     error: function() {
-                        // Manejo de error de la solicitud AJAX
                         $('#error').removeClass('hidden').text('Error en la solicitud al servidor');
                     }
                 });
             });
         });
     </script>
-    
 </body>
 </html>
